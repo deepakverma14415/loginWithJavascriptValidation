@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+1. Login Button should be enabled if password and username is filled
+2. Add disabled to all field and button when submit
+3. Change button text to Processing on submit.
+4. Then change button text to Authenticating after 2 seconds
+5. Then change button text to Login after 3 seconds and remove disabled attribute.
+6. And then submit form.
+
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+<form >
+    <input type="text" class="inputfield" placeholder="usename" onkeyup="checkValue()">
+    <input type="password" class="inputfield" placeholder="password" onkeyup="checkValue()">
+    <button type="button"  class="inputfield" disabled onclick="formValidation()">Login</button>
+</form>
+<script>
+    function checkValue(){
+        var username = document.querySelector(".inputfield[type='text']").value;
+        var password = document.querySelector(".inputfield[type='password']").value;
+        if(username && password){
+            document.querySelector(".inputfield[type='button']").removeAttribute("disabled");
+        }
+    }
+
+
+    function  formValidation(){
+        var inputs = document.getElementsByClassName("inputfield");
+        for(var i= 0; i < inputs.length;i++){
+            inputs[i].setAttribute("disabled",true);
+        }
+        var btn = document.querySelector(".inputfield[type='button']");
+        btn.innerHTML = "Processing";
+        setTimeout(function (){
+            btn.innerHTML = "Authenticating";
+            setTimeout(function (){
+                btn.innerHTML = "Login";
+                for(var i= 0; i < inputs.length;i++){
+                    inputs[i].removeAttribute("disabled");
+                }
+                document.getElementsByTagName('form')[0].submit();
+            },3000);
+        },2000);
+
+    }
+</script>
+</body>
+</html>
